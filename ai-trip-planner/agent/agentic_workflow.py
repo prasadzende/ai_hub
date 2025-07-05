@@ -31,13 +31,13 @@ class GraphBuilder():
         
         self.system_prompt = SYSTEM_PROMPT
     
-    
     def agent_function(self,state: MessagesState):
         """Main agent function"""
         user_question = state["messages"]
         input_question = [self.system_prompt] + user_question
         response = self.llm_with_tools.invoke(input_question)
         return {"messages": [response]}
+    
     def build_graph(self):
         graph_builder=StateGraph(MessagesState)
         graph_builder.add_node("agent", self.agent_function)
