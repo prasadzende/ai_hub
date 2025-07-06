@@ -1,2 +1,13 @@
 .venv
 *.egg-info
+__pycache__
+*.pyc
+*.pyo
+*.pyd
+.Python
+.env        
+*.db    
+*.sqlite3
+*.log
+*.pot
+*.mo.env

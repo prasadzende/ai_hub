@@ -43,10 +43,10 @@ class ModelLoader(BaseModel):
             model_name = self.config["llm"]["openai"]["model_name"]
             llm = ChatOpenAI(model_name="o4-mini", api_key=openai_api_key)
         elif self.model_provider == "ollama":
-            print("Loading LLM from OpenAI..............")
             #openai_api_key = os.getenv("OPENAI_API_KEY")
             model_name = self.config["llm"]["ollama"]["model_name"]
-            llm = ChatOllama(model_name=model_name)
+            print(f"Loading model {model_name} from Ollama..............")
+            llm = ChatOllama(model=model_name)
         
         return llm
     

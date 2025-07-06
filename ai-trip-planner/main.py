@@ -23,7 +23,7 @@ class QueryRequest(BaseModel):
 async def query_travel_agent(query:QueryRequest):
     try:
         print(query)
-        graph = GraphBuilder(model_provider="ollama")
+        graph = GraphBuilder(model_provider="ollama")  # or "groq", "ollama"
         react_app=graph()
         #react_app = graph.build_graph()
 
