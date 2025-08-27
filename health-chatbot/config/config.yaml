@@ -1,0 +1,10 @@
+llm:
+  openai:
+    provider: "openai"
+    model_name: "o4-mini"
+  lmstudio:
+    provider: "lmstudio"
+    model_name: "qwen/qwen3-4b-2507"
+  ollama:
+    provider: "ollama"
+    model_name: "llama3.2"
