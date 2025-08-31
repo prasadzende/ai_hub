@@ -25,9 +25,9 @@ class VannaTool:
         @tool
         def query_patient_db(question: str) -> str:
             """Search patient database using natural language query"""
-            
+            print("===================", generated_sql)
             generated_sql = self.vn.generate_sql(question=question)
-            
+            print("===================", generated_sql)
             if self.vn.is_sql_valid(sql=generated_sql):
                 return "These are the details from database: " + str(self.vn.run_sql(sql=generated_sql))
             else:

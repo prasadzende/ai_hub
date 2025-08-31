@@ -1,7 +1,7 @@
 import streamlit as st
 from dotenv import load_dotenv
 from langchain_openai import ChatOpenAI
-from agent.agentic_workflow import GraphBuilder
+from agent.agentic_workflow import MultiAgentApp
 
 load_dotenv()
 
@@ -19,7 +19,7 @@ st.title("🧑‍⚕️ AI Health Chatbot")
 # Initialize chat history
 if "messages" not in st.session_state:
     st.session_state.messages = []
-    st.session_state.graph = GraphBuilder(model_provider="lmstudio")
+    st.session_state.graph = MultiAgentApp(model_provider="lmstudio")
 
 # Display chat messages from history
 for message in st.session_state.messages:
@@ -38,18 +38,22 @@ if prompt := st.chat_input("How can I help you today?"):
     # Get chatbot response
     with st.chat_message("assistant"):
         message_placeholder = st.empty()
-        full_response = ""
+        #full_response = ""
         
         # Stream the response
         for event in st.session_state.graph().stream({
             "messages": [{"role": "user", "content": prompt}]
-        }, {"recursion_limit": 100}):
+        }, {"configurable": {"thread_id":"1"}}):
             for value in event.values():
-                response_content = value["messages"][-1].content
-                full_response = response_content
-                message_placeholder.markdown(full_response + "▌")
+                print(value)
+                if value["messages"]:
+                    response_content = value["messages"][-1].content
+                    if response_content:
+                        full_response = response_content
+                        print(full_response)
+                        message_placeholder.markdown(full_response)
         
-        message_placeholder.markdown(full_response)
+        #message_placeholder.markdown(full_response)
         
     # Add assistant response to chat history
     st.session_state.messages.append({"role": "assistant", "content": full_response})
